@@ -31,14 +31,16 @@ class RequestCode {
     _webView.onUrlChanged.listen((String url) {
       var uri = Uri.parse(url);
 
-      if (uri.queryParameters['error'] != null) {
-        _webView.close();
-        _onCodeListener.add(null);
-      }
+      if (uri.toString().startsWith(_config.redirectUri)) {
+        if (uri.queryParameters['error'] != null) {
+          _webView.close();
+          _onCodeListener.add(null);
+        }
 
-      if (uri.queryParameters['code'] != null) {
-        _webView.close();
-        _onCodeListener.add(uri.queryParameters['code']);
+        if (uri.queryParameters['code'] != null) {
+          _webView.close();
+          _onCodeListener.add(uri.queryParameters['code']);
+        }
       }
     });
 
@@ -54,6 +56,10 @@ class RequestCode {
     await _webView.launch('', hidden: true);
     await _webView.cleanCookies();
     await _webView.clearCache();
+    await _webView.close();
+  }
+
+  Future<void> close() async {
     await _webView.close();
   }
 

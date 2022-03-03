@@ -68,6 +68,11 @@ class AadOAuth {
     await _requestCode.clearCookies();
   }
 
+  /// Close the WebView
+  Future<void> close() async {
+    await _requestCode.close();
+  }
+
   /// Authorize user via refresh token or web gui if necessary.
   ///
   /// Setting [refreshIfAvailable] to [true] will attempt to re-authenticate
