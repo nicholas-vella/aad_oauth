@@ -93,7 +93,7 @@ class AadOAuth {
       token = await _requestToken.requestRefreshToken(token.refreshToken!);
     }
 
-    if (!token.hasValidAccessToken()) {
+    if (!token.hasValidAccessToken() || token.idToken != null) {
       token = await _performFullAuthFlow();
     }
 
