@@ -31,6 +31,10 @@ class RequestCode {
     _webView.onUrlChanged.listen((String url) {
       var uri = Uri.parse(url);
 
+      if (_config.onUrlChanged != null) {
+        _config.onUrlChanged!(uri);
+      }
+
       if (uri.toString().startsWith(_config.redirectUri)) {
         if (uri.queryParameters['error'] != null) {
           _webView.close();

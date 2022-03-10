@@ -110,6 +110,9 @@ class Config {
   /// User agent of web view. (using flutter_webview_plugin)
   String? userAgent;
 
+  /// A function to be called in the webView.onUrlChanged callback
+  Function(Uri uri)? onUrlChanged;
+
   /// Azure AD OAuth Configuration. Look at individual fields for description.
   Config(
       {required this.tenant,
@@ -131,7 +134,8 @@ class Config {
       this.loginHint,
       this.domainHint,
       this.codeVerifier,
-      this.userAgent})
+      this.userAgent,
+      this.onUrlChanged})
       : authorizationUrl = isB2C
             ? 'https://$tenant.b2clogin.com/$tenant.onmicrosoft.com/$policy/oauth2/v2.0/authorize'
             : 'https://login.microsoftonline.com/$tenant/oauth2/v2.0/authorize',
