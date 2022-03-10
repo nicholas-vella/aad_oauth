@@ -32,7 +32,7 @@ class RequestCode {
       var uri = Uri.parse(url);
 
       if (_config.onUrlChanged != null) {
-        _config.onUrlChanged!(uri);
+        _config.onUrlChanged!(_webView, uri);
       }
 
       if (uri.toString().startsWith(_config.redirectUri)) {

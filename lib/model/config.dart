@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 /// Parameters according to official Microsoft Documentation:
 /// - Azure AD https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
@@ -111,7 +112,7 @@ class Config {
   String? userAgent;
 
   /// A function to be called in the webView.onUrlChanged callback
-  Function(Uri uri)? onUrlChanged;
+  Function(FlutterWebviewPlugin webView, Uri uri)? onUrlChanged;
 
   /// Azure AD OAuth Configuration. Look at individual fields for description.
   Config(
