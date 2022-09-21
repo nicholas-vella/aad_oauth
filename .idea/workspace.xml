@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4a426c-1b61-4cf9-8a1d-71292972dc1f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aad_oauth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/aad_oauth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/helper/auth_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/helper/auth_storage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/token.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/token.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

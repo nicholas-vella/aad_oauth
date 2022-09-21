@@ -18,6 +18,21 @@ class AuthStorage {
     await _secureStorage.write(key: _tokenIdentifier, value: json);
   }
 
+  List<String?>? clients;
+
+  sortList() {
+    clients?.sort((a, b) {
+      if (a != null) {
+        if (b != null) {
+          int compare = a.compareTo(b);
+          return compare;
+        }
+        return 0;
+      }
+      return 1;
+    });
+  }
+
   Future<T> loadTokenFromCache<T extends Token>() async {
     try {
       var json = await _secureStorage.read(key: _tokenIdentifier);

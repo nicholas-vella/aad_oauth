@@ -101,6 +101,7 @@ class Token {
 
   /// Check if Refresh Token is set.
   bool hasRefreshToken() {
+    print(refreshToken);
     return refreshToken != null;
   }
 }
