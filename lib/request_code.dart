@@ -9,7 +9,6 @@ class RequestCode {
   final Config _config;
   final AuthorizationRequest _authorizationRequest;
   WebViewController? _webViewController;
-
   String? _code;
 
   RequestCode(Config config)
@@ -23,6 +22,7 @@ class RequestCode {
       javascriptMode: JavascriptMode.unrestricted,
       navigationDelegate: _navigationDelegate,
       onWebViewCreated: (controller) => _webViewController = controller,
+      onPageFinished: (String url) => _onPageFinished(url),
     );
 
     await _config.navigatorKey.currentState!.push(MaterialPageRoute(
@@ -32,12 +32,14 @@ class RequestCode {
     return _code;
   }
 
+  void _onPageFinished(String url) {
+    if (_webViewController != null && _config.onUrlChanged != null) {
+      _config.onUrlChanged!(_webViewController!, Uri.parse(url));
+    }
+  }
+
   FutureOr<NavigationDecision> _navigationDelegate(NavigationRequest request) {
     var uri = Uri.parse(request.url);
-
-    if (_webViewController != null && _config.onUrlChanged != null) {
-      _config.onUrlChanged!(_webViewController!, uri);
-    }
 
     if (uri.toString().startsWith(_config.redirectUri)) {
       if (uri.queryParameters['error'] != null) {
