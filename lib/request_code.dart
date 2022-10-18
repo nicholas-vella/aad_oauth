@@ -8,15 +8,37 @@ import 'package:webview_flutter/webview_flutter.dart';
 class RequestCode {
   final Config _config;
   final AuthorizationRequest _authorizationRequest;
+  String? _modifiedUrl;
   WebViewController? _webViewController;
   String? _code;
+
 
   RequestCode(Config config)
       : _config = config,
         _authorizationRequest = AuthorizationRequest(config);
+
+  Future<void> checkForDoubledUrl() async {
+    var startOfUrl = 'https://';
+    var url = _authorizationRequest.url;
+
+    if (url.contains(startOfUrl, 1)) {
+      // then the url is doubled up
+      // find the index of the actual start
+      var index = url.indexOf(startOfUrl, 1);
+
+      // make new url
+      _modifiedUrl = url.substring(index);
+
+    }
+    else {
+      _modifiedUrl = url;
+    }
+  }
+
   Future<String?> requestCode() async {
     _code = null;
     final urlParams = _constructUrlParams();
+    print("Line 41");
     var webView = WebView(
       initialUrl: '${_authorizationRequest.url}?$urlParams',
       javascriptMode: JavascriptMode.unrestricted,
@@ -39,7 +61,25 @@ class RequestCode {
   }
 
   FutureOr<NavigationDecision> _navigationDelegate(NavigationRequest request) {
-    var uri = Uri.parse(request.url);
+    var startOfUrl = 'https://';
+    var url = request.url;
+    var modifiedUrl;
+
+    if (url.contains(startOfUrl, 1)) {
+      // then the url is doubled up
+      // find the index of the actual start
+      var index = url.indexOf(startOfUrl, 1);
+
+      // make new url
+      modifiedUrl = url.substring(index);
+      _webViewController.loadUrl(modifiedUrl);
+      
+      return NavigationDecision.prevent;
+    }
+    else {
+      modifiedUrl = url;
+    }
+    var uri = Uri.parse(modifiedUrl);
 
     if (uri.toString().startsWith(_config.redirectUri)) {
       if (uri.queryParameters['error'] != null) {
